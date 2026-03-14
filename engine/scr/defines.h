@@ -58,7 +58,44 @@ STATIC_ASSERT(sizeof(f64) == 8,"Expected f64 to be 8 bytes");
 #endif
 #elif defined(__unix__)
 //catch anything not caught by the above
-#define 
+#define KPLATFORN_UNIX 1
+#elif defined(_POSIX_VERSION)
+// posix
+#define KPLATFORM_POSIX 1
+#elif __APPLE__
+// Apple Platforms
+#define KPLATFORM_APPLE 1
+#include <TargetConditionals.h>
+#if TARGET_IPHONE_SIMULATOR
+// IOS simulator
+#define KPLATFORM_IOS 1
+#define KPLATFORM_IOS_SIMULATOR 1
+#elif TARGET_OS_IPHONE
+#define KPLATFORM_IOS 1
+// IOS device
+#elif TARGET_OS_MAC
+// Other kinds of Mac os
+#else
+#error "Unkown Apple platform"
+#endif
 
-// finish code timestamp: 10:24
+#ifdef KEXPORT
+// Exports
+#ifdef _MSC_VER
+#define KAPI __declspec(dllexport)
+#else
+#define KAPI __attribute((visibility("default")))
+#endif
+#else
+// imports
+#ifdef _MSC_VER
+#define KAPI __declspec(dllimport)
+#else
+#define KAPI
+#endif
+#endif
+#endif
+
+
+// finish code, timestamp: 11:47
 //video url: https://www.youtube.com/watch?v=F6_WdnzQIQ4&list=PLv8Ddw9K0JPg1BEO-RS-0MYs423cvLVtj&index=3
