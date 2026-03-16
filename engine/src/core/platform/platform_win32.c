@@ -1,9 +1,4 @@
-#include "platform/platform.h"
-
-// video: https://www.youtube.com/watch?v=ojEPsZFPj2Q&list=PLv8Ddw9K0JPg1BEO-RS-0MYs423cvLVtj&index=6
-// commit: https://github.com/travisvroman/kohi/commit/ca0600eaefd11ed674c5a4642fb13ce17a96656f#diff-7f4ba46fd3ad1ae4558ae188a098f3a9d7009e1dbfc890e6562602f0f790e1e5
-// timestamp 11:37
-
+#include "platform.h"
 
 // Windows platform layer.
 #if KPLATFORM_WINDOWS
