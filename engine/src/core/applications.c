@@ -1,4 +1,5 @@
 #include "application.h"
+#include "game_types.h"
 
 #include "logger.h"
 
@@ -25,21 +26,21 @@ b8 application_create(game* game_inst) {
 
     app_state.game_inst = game_inst;
 
-    // Inizalize subsystems
+    // Initialize subsystems.
     initialize_logging();
 
-    // TODO: remove this
-    KFATAL("A test fatal message: %f", 3.14f);
-    KERROR("A test error message: %f", 3.14f);
-    KWARN("A test warning message: %f", 3.14f);
-    KINFO("A test info message: %f", 3.14f);
-    KDEBUG("A test debug message: %f", 3.14f);
-    KTRACE("A test trace message: %f", 3.14f);
+    // TODO: Remove this
+    KFATAL("A test message: %f", 3.14f);
+    KERROR("A test message: %f", 3.14f);
+    KWARN("A test message: %f", 3.14f);
+    KINFO("A test message: %f", 3.14f);
+    KDEBUG("A test message: %f", 3.14f);
+    KTRACE("A test message: %f", 3.14f);
 
     app_state.is_running = TRUE;
     app_state.is_suspended = FALSE;
 
-    if(!platform_startup(
+    if (!platform_startup(
             &app_state.platform,
             game_inst->app_config.name,
             game_inst->app_config.start_pos_x,
@@ -58,12 +59,12 @@ b8 application_create(game* game_inst) {
     app_state.game_inst->on_resize(app_state.game_inst, app_state.width, app_state.height);
 
     initialized = TRUE;
-
+    
     return TRUE;
 }
 
 b8 application_run() {
-    while(app_state.is_running) {
+    while (app_state.is_running) {
         if(!platform_pump_messages(&app_state.platform)) {
             app_state.is_running = FALSE;
         }
@@ -74,6 +75,7 @@ b8 application_run() {
                 app_state.is_running = FALSE;
                 break;
             }
+
             // Call the game's render routine.
             if (!app_state.game_inst->render(app_state.game_inst, (f32)0)) {
                 KFATAL("Game render failed, shutting down.");
@@ -82,9 +84,10 @@ b8 application_run() {
             }
         }
     }
+
     app_state.is_running = FALSE;
 
     platform_shutdown(&app_state.platform);
 
     return TRUE;
-
+}

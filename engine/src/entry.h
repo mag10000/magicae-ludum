@@ -25,21 +25,16 @@ int main(void) {
         return -2;
     }
 
-    // Video: https://www.youtube.com/watch?v=jEbqCf-MsZs&list=PLv8Ddw9K0JPg1BEO-RS-0MYs423cvLVtj&index=8
-    // Timestamp : 32:17
-    // Commit : https://github.com/travisvroman/kohi/commit/24e2a8a09314969464931cbdb2840b4677f8dee3#diff-acf2b772f2fcba16a166c4da48913db9d9243fe40eae4321d9670a5a7b12bbc0
+    // Inititilization
+    if(!application_create(&game_inst)) {
+        KINFO("Application failed to create!\n");
+        return 1;
+    }
 
-    application_create(&config);
-
-    application_run();
-
-    // Application configuration.
-    application_config config;
-    config.start_pos_x = 100;
-    config.start_pos_y = 100;
-    config.start_width = 1280;
-    config.start_height = 720;
-    config.name = "Magicae Ludum Engine";
-
+    // Begin the game loop.
+    if(!application_run()){
+        KINFO("Application did not shutdown right\n");
+        return 2;
+    }
     return 0;
 }

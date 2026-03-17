@@ -1,7 +1,8 @@
 #pragma once
 
 #include "defines.h"
-#include "game_types.h"
+
+struct game;
 
 // Application configuration.
 typedef struct application_config {
